@@ -40,6 +40,7 @@ export interface PersonalInfo {
   email: string;
   githubUrl: string;
   linkedinUrl: string;
+  resumeUrl?: string; // Optional: path to PDF or Google Drive resume link
 }
 
 export interface NavLink {
