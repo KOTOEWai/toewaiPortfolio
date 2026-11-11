@@ -1,12 +1,28 @@
+"use client";
+
+import { useState } from "react";
 import { portfolioData, isPlaceholder } from "@/data/portfolio";
 import { Project, ProjectStatus } from "@/types/portfolio";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, AlertCircle, LayoutDashboard, Terminal } from "lucide-react";
+import { ExternalLink, AlertCircle, Video, Headphones, Database, Terminal, Filter } from "lucide-react";
 import { GithubIcon } from "@/components/ui/icons";
 
 interface ProjectCardProps {
   project: Project;
+}
+
+function ProjectIcon({ id, className = "w-5 h-5" }: { id: string; className?: string }) {
+  if (id === "videodownloader-x") {
+    return <Video className={className} aria-hidden="true" />;
+  }
+  if (id === "shadowing-english") {
+    return <Headphones className={className} aria-hidden="true" />;
+  }
+  if (id.includes("business") || id === "project-3") {
+    return <Database className={className} aria-hidden="true" />;
+  }
+  return <Terminal className={className} aria-hidden="true" />;
 }
 
 function ProjectCard({ project }: ProjectCardProps) {
@@ -55,11 +71,7 @@ function ProjectCard({ project }: ProjectCardProps) {
 
               <div className="flex items-center gap-3 z-10">
                 <div className="w-10 h-10 rounded border border-[var(--border)] bg-[var(--surface)] flex items-center justify-center text-[var(--accent)] shrink-0">
-                  {project.id === "project-1" ? (
-                    <LayoutDashboard className="w-5 h-5" aria-hidden="true" />
-                  ) : (
-                    <Terminal className="w-5 h-5" aria-hidden="true" />
-                  )}
+                  <ProjectIcon id={project.id} className="w-5 h-5" />
                 </div>
                 <div>
                   <p className="font-mono text-xs font-semibold text-[var(--text-primary)]">
@@ -204,7 +216,7 @@ function ProjectCard({ project }: ProjectCardProps) {
             ? "Active Dev"
             : project.status === "Concept"
             ? "Design Phase"
-            : "Verified"}
+            : "Production Verified"}
         </span>
       </div>
     </article>
@@ -213,6 +225,15 @@ function ProjectCard({ project }: ProjectCardProps) {
 
 export function ProjectsSection() {
   const { projects } = portfolioData;
+  const [activeFilter, setActiveFilter] = useState<"All" | "Completed" | "In Progress">("All");
+
+  const filteredProjects =
+    activeFilter === "All"
+      ? projects
+      : projects.filter((p) => p.status === activeFilter);
+
+  const completedCount = projects.filter((p) => p.status === "Completed").length;
+  const inProgressCount = projects.filter((p) => p.status === "In Progress").length;
 
   return (
     <section id="projects" className="py-16 md:py-24 border-b border-[var(--border)]">
@@ -220,11 +241,55 @@ export function ProjectsSection() {
         <SectionHeading
           eyebrow="Hands-On Work"
           title="Featured Projects"
-          description="A transparent catalog of projects built or actively being engineered. Each entry outlines the real problem, functionality, architecture, and honest development status."
+          description="A transparent catalog of projects built and actively engineered. Each entry outlines the real problem, functionality, architecture, and honest development status."
         />
 
+        {/* Status Filter Bar */}
+        <div className="flex flex-wrap items-center gap-2 mb-8 p-1.5 rounded-lg border border-[var(--border)] bg-[var(--surface-elevated)] w-fit text-xs font-mono">
+          <span className="px-2 text-[var(--text-muted)] flex items-center gap-1">
+            <Filter className="w-3 h-3" aria-hidden="true" />
+            <span>Filter:</span>
+          </span>
+
+          <button
+            type="button"
+            onClick={() => setActiveFilter("All")}
+            className={`px-3 py-1 rounded transition-colors ${
+              activeFilter === "All"
+                ? "bg-[var(--surface)] text-[var(--accent)] font-semibold shadow-xs border border-[var(--border)]"
+                : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+            }`}
+          >
+            All ({projects.length})
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveFilter("Completed")}
+            className={`px-3 py-1 rounded transition-colors ${
+              activeFilter === "Completed"
+                ? "bg-[var(--surface)] text-[var(--accent)] font-semibold shadow-xs border border-[var(--border)]"
+                : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+            }`}
+          >
+            Completed ({completedCount})
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveFilter("In Progress")}
+            className={`px-3 py-1 rounded transition-colors ${
+              activeFilter === "In Progress"
+                ? "bg-[var(--surface)] text-[var(--accent)] font-semibold shadow-xs border border-[var(--border)]"
+                : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+            }`}
+          >
+            In Progress ({inProgressCount})
+          </button>
+        </div>
+
         <div className="grid grid-cols-1 gap-8">
-          {projects.map((project) => (
+          {filteredProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
         </div>
@@ -233,10 +298,10 @@ export function ProjectsSection() {
         <div className="mt-8 p-4 rounded border border-[var(--border)] bg-[var(--surface)] text-xs text-[var(--text-secondary)] space-y-1">
           <p className="font-medium text-[var(--text-primary)] flex items-center gap-1.5">
             <AlertCircle className="w-4 h-4 text-[var(--accent)]" aria-hidden="true" />
-            <span>Honesty &amp; Verification Policy</span>
+            <span>Project Verification Policy</span>
           </p>
           <p className="leading-relaxed">
-            Projects marked as <span className="font-mono text-amber-700 dark:text-amber-400">In Progress</span> or <span className="font-mono text-purple-700 dark:text-purple-400">Concept</span> represent active learning milestones. Links to repositories and live deployments are only enabled once code is thoroughly tested and committed.
+            Completed projects link directly to verified GitHub repositories. Ongoing initiatives reflect active learning milestones and will link once initial tests are completed.
           </p>
         </div>
       </div>

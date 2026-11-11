@@ -30,11 +30,11 @@ export const portfolioData: PortfolioData = {
     role: "Full-Stack Software Developer",
     statusBadge: "Available for Opportunities",
     shortBio:
-      "Passionate full-stack developer experienced in building modern web applications, real-time multimedia processing systems, and scalable backend services with React, Node.js, Express, and MongoDB.",
+      "Passionate full-stack developer experienced in building modern web applications, real-time multimedia processing systems, and interactive learning platforms with Next.js, React, Node.js, and MongoDB.",
     aboutParagraphs: [
       "I am a full-stack software developer with a practical, hands-on focus on creating resilient and user-friendly web applications. I love tackling challenging technical problems—from media processing pipelines and WebSocket event streaming to responsive, accessible client interfaces.",
       "My approach is centered on first principles: understanding how systems work under the hood, writing modular and typed code, reading primary documentation, and systematically tracing errors to their root causes.",
-      "I actively build and ship full-stack applications like VideoDownloader X, exploring modern engineering best practices, and I am excited to contribute to collaborative engineering teams and high-impact products.",
+      "I actively build and ship full-stack applications like VideoDownloader X and the Shadowing English Learning App, exploring modern engineering best practices, and I am excited to contribute to collaborative engineering teams and high-impact products.",
     ],
     learningApproachIntro:
       "A disciplined engineering workflow centered on reading primary sources, testing assumptions, and learning systematically from errors.",
@@ -60,10 +60,11 @@ export const portfolioData: PortfolioData = {
       description: "Building responsive, performant, and interactive user interfaces.",
       skills: [
         "React",
-        "Vite",
-        "Tailwind CSS",
         "Next.js (App Router)",
         "TypeScript",
+        "Tailwind CSS",
+        "Video.js",
+        "Framer Motion",
         "JavaScript (ES6+)",
         "HTML5 & CSS3",
         "Socket.io Client",
@@ -146,7 +147,38 @@ export const portfolioData: PortfolioData = {
       ],
     },
     {
-      id: "project-2",
+      id: "shadowing-english",
+      title: "Shadowing English Learning App",
+      tagline: "Interactive speech training platform with synced video transcripts and vocabulary flashcards.",
+      status: "Completed",
+      problem:
+        "Mastering spoken English with natural rhythm and intonation requires deliberate shadowing practice, yet conventional video players lack synchronized timecode transcripts, speed fine-tuning, and on-the-spot word lookup.",
+      description:
+        "A modern language-learning web application built around the proven Shadowing Method. Features a custom Video.js player with YouTube integration and 0.5x–1.5x speed controls, an interactive transcript with auto-scroll and real-time sentence highlighting, click-to-seek timestamp jumping, an instant Word Explorer popover with native audio pronunciation, and a personal Vocabulary Bank with interactive flashcard drills.",
+      contribution:
+        "Engineered the Next.js App Router architecture with dynamic slug routing for topic categories (Movies, Business, IELTS, Daily Conversation); built the timestamp-synchronized transcript auto-scrolling engine with click-to-seek video jumps; integrated Video.js playback controls; and developed the interactive Vocabulary Bank with spaced-repetition flashcard drills.",
+      technologies: [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Video.js",
+        "Framer Motion",
+        "YouTube API",
+        "Lucide React",
+      ],
+      githubUrl: "https://github.com/KOTOEWai/ShawdowingPratice",
+      liveUrl: "",
+      image: "",
+      keyLearnings: [
+        "Synchronizing HTML5 video playback timestamps with live transcript scrolling and active sentence highlighting",
+        "Dynamic slug routing in Next.js for scalable category-based content discovery (Movies, Business, IELTS, Daily Conversation)",
+        "Integrating Video.js and YouTube iframe API with fine-grained playback speed controls",
+        "Designing interactive client-side flashcards and word-lookup popovers with accessible focus management",
+      ],
+    },
+    {
+      id: "project-3",
       title: "Small Business Management System",
       tagline: "End-to-end inventory management, sales tracking, and invoice generation platform.",
       status: "In Progress",
@@ -164,27 +196,6 @@ export const portfolioData: PortfolioData = {
         "Implementing transactional database updates and relational constraints",
         "Role-based access control and JWT authentication",
         "Optimizing server-rendered dashboard components for fast load times",
-      ],
-    },
-    {
-      id: "project-3",
-      title: "Personal Expense & Budget Tracker",
-      tagline: "Financial tracking dashboard with category-based spending analytics.",
-      status: "In Progress",
-      problem:
-        "Individuals struggle to gain clarity on daily expenditure trends and recurring subscriptions without bloated or invasive financial apps.",
-      description:
-        "A clean web application that allows users to record daily income and expenses, set monthly spending thresholds, and visualize cash-flow trends.",
-      contribution:
-        "Created responsive interactive forms, engineered client-side cash flow summaries, and designed custom SVG visual analytics charts.",
-      technologies: ["React", "TypeScript", "Next.js", "Tailwind CSS", "Data Analytics"],
-      githubUrl: "REPLACE_WITH_GITHUB_URL",
-      liveUrl: "REPLACE_WITH_LIVE_DEMO_URL",
-      image: "",
-      keyLearnings: [
-        "Precision decimal calculations for financial data",
-        "Optimistic UI updates for high-responsiveness transaction entry",
-        "Keyboard-friendly data entry with accessible inputs",
       ],
     },
   ],
